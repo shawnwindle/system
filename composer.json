@@ -1,0 +1,26 @@
+{
+    "name": "system",
+    "description": "Custom website internals",
+    "keywords": ["website"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Shawn Windle",
+            "email": "fearloathing2001@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.4",
+	    "illuminate/database": "5.3.*",
+	    "symfony/finder": "^3.1",
+	    "symfony/http-foundation": "^3.1",
+	    "symfony/routing": "^3.1",
+	    "hautelook/phpass": "1.0.*",
+	    "windwalker/renderer": "3.1.*"
+    },
+    "autoload": {
+	    "psr-4": {
+            "System\\": "src/"
+	    }
+    }
+}
