@@ -1,7 +1,7 @@
 <?php
     namespace System\HTTP;
 
-    use Symfony\Component\HttpFoundation\Request;
+    use Symfony\Component\HttpFoundation\Request as BaseRequest;
 
     use System\HTTP\ServerEnv;
 
@@ -13,7 +13,7 @@
 
         public function __construct()
         {
-            $this->request = Request::createFromGlobals();
+            $this->request = BaseRequest::createFromGlobals();
         }
 
         public function getRequest()
