@@ -56,6 +56,26 @@
             return $url;
         }
 
+        public static function buildURLFromGlobals($ignore_query=[])
+        {
+            $query = [];
+            $keys = array_keys($_GET);
+            foreach($keys as $key)
+            {
+                if(!in_array($key,$ignore_query))
+                {
+                    $query[] = $key.'='.$_GET[$key];
+                }
+            }
+
+            if(count($query))
+                $query = implode('&',$query);
+            else
+                $query;
+
+            return ServerEnv::getSchema().'://'.ServerEnv::getDomain().'/'.ServerEnv::getPage().($query ? '?'.$query : '');
+        }
+
 		public function setDomain($domain)
 		{
 			$this->domain = $domain;
