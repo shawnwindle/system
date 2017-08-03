@@ -119,8 +119,20 @@
 		{
 			if(is_array($query))
 				$this->query = $query;
+            else if(is_string($query))
+            {
+                $parts = explode('&',$query);
+                foreach($parts as $part)
+                {
+                    $query = explode('=',$part);
+                    if(count($query) >= 2)
+                    {
+                        $this->query[$query[0]] = $query[1];
+                    }
+                }
+            }
 			else
-				throw new \InvalidArgumentException('Argument #1 must be an array.');
+				throw new \InvalidArgumentException('Argument #1 must be an array or string.');
 		}
 
 		public function getQuery()

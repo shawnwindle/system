@@ -20,6 +20,10 @@
 			$style = '';
 			if(isset($options['style']))
 				$style = $options['style'];
+            
+            $params = '';
+			if(isset($options['params']))
+				$params = $options['params'];
 
 			$method = 'GET';
 			if(isset($options['method']))
@@ -35,6 +39,8 @@
 			$attributes = 'action="'.$url.'" method="'.$method.'"';	
 			if($style)
 				$attributes .= ' style="'.$style.'"';
+			if($params)
+				$attributes .= ' '.$params;
 
 			return '<form '.$attributes.'>'.$method_alias;
 		}
