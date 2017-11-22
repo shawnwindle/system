@@ -55,6 +55,11 @@
         {
             return $this->request->files->get($key);
         }
+        
+        public function hasFile($key)
+        {
+            return $this->request->files->has($key);
+        }
 
         public function allFile()
         {

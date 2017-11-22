@@ -98,6 +98,11 @@
 		{
 			return static::input('text',$name,$value,$attributes);
 		}
+        
+        public static function file($name,$attributes=[])
+		{
+			return static::input('file',$name,'',$attributes);
+		}
 
 		private static function input($type,$name,$value,$attributes=[])
 		{

@@ -28,6 +28,13 @@
 				$this->setQuery($query);
 		}
 
+        public static function getCurrentURL()
+        {
+            $url = ServerEnv::getURL();
+
+            return self::getURL($url);
+        }
+
         public static function getURL($url_string)
         {
             $url_parts = parse_url($url_string);
@@ -38,7 +45,7 @@
                 if(isset($url_parts['host']))
                     $url->setDomain($url_parts['host']);
                 if(isset($url_parts['scheme']))
-                    $url->setScheme($url_parts['scheme']);
+                    $url->setSchema($url_parts['scheme']);
                 if(isset($url_parts['path']))
                     $url->setPath($url_parts['path']);
 

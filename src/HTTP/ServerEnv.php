@@ -34,7 +34,17 @@
 		public static function getDomain()
 		{
 			return $_SERVER['HTTP_HOST'];
-		}
+        }
+
+        public static function getURL()
+        {
+            return self::getSchema().'://'.self::getDomain().self::getFullPage();
+        }
+
+        public static function getFullPage()
+        {
+            return $_SERVER['REQUEST_URI'];
+        }
 
 		public static function getPage()
         {
