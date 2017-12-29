@@ -27,6 +27,8 @@
 
 		private function loadApp()
         {
+            $this->runGlobalMiddleware();
+            
             $ioc = ioc();
 
             $request = $ioc->resolve('request');
@@ -67,7 +69,6 @@
 
                     $this->controller = new $controllers_name();
 
-                    $this->runGlobalMiddleware();
                     $this->runLocalMiddleware();
 
                     $params = array();
@@ -127,7 +128,6 @@
             {
                 //print_r($e);
                 //exit;
-                $this->runGlobalMiddleware();
                 $this->runLocalMiddleware();
 
                 if($this->old_app)

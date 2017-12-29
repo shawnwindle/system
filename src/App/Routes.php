@@ -52,6 +52,17 @@
                 array(), array(), '', array(), $methods));
         }
 
+        public static function getRoute($routeName)
+        {
+            $route = null;
+            if(self::$routes)
+                $route = self::$routes->get($routeName);
+
+            if($route)
+                return $route;
+            throw new \InvalidArgumentException('Route does not exist');
+        }
+
         public static function get($url,$controller,$routeName)
         {
             self::addRoute('GET',$url,$controller,$routeName);
