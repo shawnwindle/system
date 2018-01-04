@@ -11,7 +11,7 @@
 
 		private $url;
 
-		public function __construct($url, $redirect = true)
+		public function __construct($url, $redirect = true, $with_post = false)
 		{
 			if(is_string($url))
 				$this->redirect = new RedirectResponse($url);
@@ -20,6 +20,8 @@
 			else
 				throw new \InvalidArgumentException('Argument #1 must be either a string or System\HTTP\URL.');
 
+            if($with_post)
+                $_SESSION['_redirect_post'] = $_POST;
 			if($redirect)
 				$this->redirect();
 		}

@@ -61,18 +61,19 @@
 			return htmlentities($value, ENT_QUOTES, 'UTF-8', false);
 		}
 
-		private static function value($name,$value)
-		{
-			$val = $value;
-			if(is_null($val))
-			{
-				if(isset($_POST[$name]))
-					$val = $_POST[$name];
-				else if(static::$model && static::$model->$name)
-					$val = static::$model->$name;
-			}
-			return $val;
-		}
+        private static function value($name,$value)
+        {
+            if(isset($_SESSION['_redirect_post']) && isset($_SESSION['_redirect_post'][$name]))
+            {
+                $val = $_SESSION['_redirect_post'][$name];
+                unset($_SESSION['_redirect_post'][$name]);
+            }
+            else if(static::$model && static::$model->$name && !is_object(static::$model->$name))
+                $val = static::$model->$name;
+            else
+                $val = $value;
+            return $val;
+        }
 
 		private static function attributes($attributes)
 		{
