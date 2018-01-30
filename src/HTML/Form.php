@@ -63,15 +63,14 @@
 
         private static function value($name,$value)
         {
+            $val = $value;
             if(isset($_SESSION['_redirect_post']) && isset($_SESSION['_redirect_post'][$name]))
             {
                 $val = $_SESSION['_redirect_post'][$name];
                 unset($_SESSION['_redirect_post'][$name]);
             }
-            else if(static::$model && static::$model->$name && !is_object(static::$model->$name))
+            else if(is_null($val) && static::$model && static::$model->$name && !is_object(static::$model->$name))
                 $val = static::$model->$name;
-            else
-                $val = $value;
             return $val;
         }
 
