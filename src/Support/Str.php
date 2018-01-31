@@ -5,8 +5,22 @@
 	//to support unicode
 	class Str
     {
+        private static function trimArray($array)
+        {
+            foreach($array as $key => $val)
+            {
+                if(is_array($val))
+                    $array[$key] = static::trimArray($val);
+                else
+                    $array[$key] = trim($val);
+            } 
+            return $array;
+        }
+
         public static function trim($string)
         {
+            if(is_array($string))
+                return static::trimArray($string);
             return trim($string);
         }
 
