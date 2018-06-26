@@ -104,7 +104,7 @@
 			return static::input('file',$name,'',$attributes);
 		}
 
-		private static function input($type,$name,$value,$attributes=[])
+		public static function input($type,$name,$value,$attributes=[])
 		{
 			$value = static::value($name,$value);
 			$html = '<input type="'.$type.'" ';
