@@ -45,7 +45,7 @@
 			return '<form '.$attributes.'>'.$method_alias;
 		}
 
-		public static function model(Eloquent $model,$options)
+		public static function model(Eloquent $model=null,$options=[])
 		{
 			static::$model = $model;
 			return static::open($options);
