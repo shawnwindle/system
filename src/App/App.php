@@ -6,6 +6,8 @@
     use Symfony\Component\Routing\RequestContext;
     use Symfony\Component\Routing\Matcher\UrlMatcher;
     
+    use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+    
     use Symfony\Component\HttpFoundation\Response;
     
     use System\Support\Str;
@@ -124,14 +126,27 @@
                     exit;
                 }
             }
-            catch(\Exception $e)
+            catch(ResourceNotFoundException $e)
             {
-                //print_r($e);
-                //exit;
                 $this->runLocalMiddleware();
 
                 if($this->old_app)
-                    $this->old_app->run();
+                {
+                    try
+                    {
+                        $this->old_app->run();
+                    }
+                    catch(\Exception $app_e)
+                    {
+                        print_r($app_e);
+                        exit;
+                    }
+                }
+            }
+            catch(\Exception $e)
+            {
+                print_r($e);
+                exit;
             }
 		}
 
