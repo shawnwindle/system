@@ -7,6 +7,7 @@
     use Symfony\Component\Routing\Matcher\UrlMatcher;
     
     use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+    use Symfony\Component\Routing\Exception\MethodNotAllowedException;
     
     use Symfony\Component\HttpFoundation\Response;
     
@@ -128,20 +129,11 @@
             }
             catch(ResourceNotFoundException $e)
             {
-                $this->runLocalMiddleware();
-
-                if($this->old_app)
-                {
-                    try
-                    {
-                        $this->old_app->run();
-                    }
-                    catch(\Exception $app_e)
-                    {
-                        print_r($app_e);
-                        exit;
-                    }
-                }
+                $this->runOldApp();
+            }
+            catch(MethodNotAllowedException $e)
+            {
+                $this->runOldApp();
             }
             catch(\Exception $e)
             {
@@ -149,6 +141,24 @@
                 exit;
             }
 		}
+
+        private function runOldApp()
+        {
+            $this->runLocalMiddleware();
+
+            if($this->old_app)
+            {
+                try
+                {
+                    $this->old_app->run();
+                }
+                catch(\Exception $app_e)
+                {
+                    print_r($app_e);
+                    exit;
+                }
+            }
+        }
 
 		private function loadProviders()
         {
