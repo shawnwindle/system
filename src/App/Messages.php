@@ -1,21 +1,27 @@
 <?php
 	namespace System\App;
 
+    use System\App\MVC\View;
+
 	class Messages
 	{
+        private $view;
+
 		//move all this session interaction to HTTP Foundation (symfony)
-		public function __construct()
+		public function __construct($view)
 		{
+            $this->view = $view;
+
 			if(!isset($_SESSION['msg']))
-				$_SESSION['msg'] = array();
+				$_SESSION['msg'] = [];
 		}
 
 		private function init($name)
 		{
 			if(!isset($_SESSION['msg'][$name]))
 			{
-				$_SESSION['msg'][$name]['err'] = array();
-				$_SESSION['msg'][$name]['msg'] = array();
+				$_SESSION['msg'][$name]['err'] = [];
+				$_SESSION['msg'][$name]['msg'] = [];
 			}
 		}
 
@@ -43,35 +49,19 @@
 			return false;
 		}
 
-		//TODO: move layout out of this class (view)
 		public function getMessages($clear=true)
 		{
-			$ret = '';
+            $messages = $_SESSION['msg'];
 
-			foreach($_SESSION['msg'] as $k => $v)
-			{
-				if(count($v['err']) > 0 || count($v['msg']) > 0)
-				{
-					$ret .= '<table width="100%" cellpadding="0" cellspacing="0">';
-					foreach($v['err'] as $v2)
-					{
-						$ret .= '<tr><td bgcolor="#CD0000"><div style="color: white;margin: 5px;">'.$v2.'</div></td></tr>';
-					}
-					
-					foreach($v['msg'] as $v2)
-					{
-						$ret .= '<tr><td bgcolor="#094AB2"><div style="color: white;margin: 5px;">'.$v2.'</div></td></tr>';
-					}
-					$ret .= '</table>';
-				}
-			}
+            $view = new View($this->view,compact(['messages']));
+            $html = $view->render();
 
 			if($clear)
 			{
-				$_SESSION['msg'] = array();
+				$_SESSION['msg'] = [];
 			}
 
-			return $ret;
+			return $html;
 		}
 	}
 ?>
