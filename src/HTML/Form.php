@@ -150,7 +150,7 @@
 			if($value == $option)
 				$attributes['checked'] = 'checked';
 
-			return static::input('checkbox',$name,$option,$attributes);
+			return static::input('checkbox',$name,$value,$attributes);
 		}
 
 		public static function submit($value=null,$attributes=[])
